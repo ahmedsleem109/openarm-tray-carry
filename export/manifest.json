@@ -1,0 +1,116 @@
+{
+  "ball_estimator": {
+    "file": "tray_ball_estimator.onnx",
+    "parameters": 157862,
+    "cameras": [
+      "balancecam",
+      "topcam"
+    ],
+    "image_size": [
+      84,
+      112
+    ],
+    "frame_stack": 2,
+    "frame_stride": 2,
+    "inputs": {
+      "images": "one per camera, (B, 3*frame_stack, H, W), float32 in [-0.5, 0.5], oldest frame first, RGB",
+      "proprio": "(B, proprio_dim), standardised with proprio_mean/proprio_std"
+    },
+    "outputs": {
+      "tilt": "(B, 2) roll, pitch \u2014 multiply by tilt_scale for radians",
+      "ball_state": "(B, 4) x, y, vx, vy in the tray frame \u2014 multiply the first two by ball_scale for metres and the last two by velocity_scale for m/s"
+    },
+    "proprio_mean": [
+      -0.1459299772977829,
+      0.022627439349889755,
+      0.02908097580075264,
+      1.6217265129089355,
+      0.014831864275038242,
+      -0.193031907081604,
+      0.02681473270058632,
+      0.04668913409113884,
+      0.046868059784173965,
+      0.147058367729187,
+      -0.007671743165701628,
+      0.026019655168056488,
+      1.6178946495056152,
+      -0.013511399738490582,
+      0.1933261603116989,
+      0.027580318972468376,
+      -0.0492965467274189,
+      -0.049479808658361435,
+      0.37306293845176697,
+      -0.007191971410065889,
+      0.4828752279281616,
+      0.9995165467262268,
+      0.0005001768004149199,
+      -0.00368038984015584,
+      0.0012431481154635549
+    ],
+    "proprio_std": [
+      0.09806952625513077,
+      0.07297483086585999,
+      0.14852024614810944,
+      0.16371005773544312,
+      0.07560574263334274,
+      0.14619490504264832,
+      0.14969868957996368,
+      0.007179326843470335,
+      0.007199560757726431,
+      0.10318641364574432,
+      0.07946069538593292,
+      0.12276137620210648,
+      0.1697494238615036,
+      0.07211042195558548,
+      0.145952045917511,
+      0.12083616107702255,
+      0.008240598253905773,
+      0.008267039433121681,
+      0.021569274365901947,
+      0.03747482970356941,
+      0.030072404071688652,
+      0.0016066929092630744,
+      0.02636144682765007,
+      0.018465884029865265,
+      0.011675184592604637
+    ],
+    "tilt_scale": 0.2,
+    "ball_scale": 0.1,
+    "velocity_scale": 0.4,
+    "onnx_vs_torch_max_abs": 1.210719347000122e-07
+  },
+  "handle_detector": {
+    "file": "tray_handle_detector.onnx",
+    "parameters": 82502,
+    "cameras": [
+      "balancecam",
+      "topcam"
+    ],
+    "image_size": [
+      84,
+      112
+    ],
+    "inputs": {
+      "images": "one per camera, (B, 3, H, W), float32 in [-0.5, 0.5], RGB, taken with the arms at the retracted pose before any approach"
+    },
+    "outputs": {
+      "handle_offsets": "(B, 6) left xyz then right xyz \u2014 multiply by handle_scale and add handle_nominal for world metres"
+    },
+    "handle_scale": 0.05,
+    "handle_nominal": [
+      [
+        0.3499999940395355,
+        0.15000000596046448,
+        0.4399999976158142
+      ],
+      [
+        0.3499999940395355,
+        -0.15000000596046448,
+        0.4399999976158142
+      ]
+    ],
+    "validation_error_m": 0.0010514098219573497,
+    "onnx_vs_torch_max_abs": 8.940696716308594e-08
+  },
+  "note": "Images are RGB uint8 divided by 255 and shifted by -0.5. The ball estimator's velocity output was measured to be uninformative at this resolution; the controller differences the position estimate instead. See STATUS.md."
+}
