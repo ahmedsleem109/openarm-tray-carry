@@ -1,0 +1,212 @@
+{
+  "clean": {
+    "summary": "nothing enabled (baseline)",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.036463246370355286,
+      "mean_tracking_m": 0.003620892142256101,
+      "mean_grip_n": 34.27158816655477,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.032057503859202065,
+      "mean_tracking_m": 0.0028523701863984265,
+      "mean_grip_n": 34.02472114562988,
+      "tilt_rmse_vs_classical_rad": 0.012106414573887983,
+      "ball_sight_rmse_m": 0.004519646324926189
+    }
+  },
+  "camera-noise": {
+    "summary": "camera gain 0.04 read 2",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.036463246370355286,
+      "mean_tracking_m": 0.003620892142256101,
+      "mean_grip_n": 34.27158816655477,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03300657247503599,
+      "mean_tracking_m": 0.0029512981127481908,
+      "mean_grip_n": 33.99770736694336,
+      "tilt_rmse_vs_classical_rad": 0.013975194034477076,
+      "ball_sight_rmse_m": 0.005069524556599814
+    }
+  },
+  "torque": {
+    "summary": "torque at 100% of rated",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03633389870325724,
+      "mean_tracking_m": 0.0033781503152567893,
+      "mean_grip_n": 33.950867652893066,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03197601484134793,
+      "mean_tracking_m": 0.002841922929898525,
+      "mean_grip_n": 34.02369769414266,
+      "tilt_rmse_vs_classical_rad": 0.01204953637594978,
+      "ball_sight_rmse_m": 0.004596924901730526
+    }
+  },
+  "torque-40": {
+    "summary": "torque at 40% of rated",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03410359797999263,
+      "mean_tracking_m": 0.0037298151679957905,
+      "mean_grip_n": 34.4909873008728,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03186094450453917,
+      "mean_tracking_m": 0.003004508490751808,
+      "mean_grip_n": 34.34121163686117,
+      "tilt_rmse_vs_classical_rad": 0.01343952196960648,
+      "ball_sight_rmse_m": 0.0046596972465118664
+    }
+  },
+  "latency-1": {
+    "summary": "latency 1 step(s)",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03239707943672935,
+      "mean_tracking_m": 0.002876460329086209,
+      "mean_grip_n": 34.56985982259115,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.032974141339461006,
+      "mean_tracking_m": 0.00307753235877802,
+      "mean_grip_n": 34.3861198425293,
+      "tilt_rmse_vs_classical_rad": 0.012092457618564367,
+      "ball_sight_rmse_m": 0.004805830345545949
+    }
+  },
+  "latency-2": {
+    "summary": "latency 2 step(s)",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03597439251219233,
+      "mean_tracking_m": 0.003567602611534918,
+      "mean_grip_n": 34.20160102844238,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.041071692481637,
+      "mean_tracking_m": 0.003944212182735403,
+      "mean_grip_n": 34.071035067240395,
+      "tilt_rmse_vs_classical_rad": 0.01296057109721005,
+      "ball_sight_rmse_m": 0.0051232717403937094
+    }
+  },
+  "backlash-0.5": {
+    "summary": "backlash 0.50 deg",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.04562268732115626,
+      "mean_tracking_m": 0.006011825016078849,
+      "mean_grip_n": 28.766929149627686,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.04902463871985674,
+      "mean_tracking_m": 0.005826965866920848,
+      "mean_grip_n": 29.08713960647583,
+      "tilt_rmse_vs_classical_rad": 0.013865873838464418,
+      "ball_sight_rmse_m": 0.005712585551715758
+    }
+  },
+  "backlash-1.5": {
+    "summary": "backlash 1.50 deg",
+    "classical": {
+      "survived": 11,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.06115086656063795,
+      "mean_tracking_m": 0.01180614709543685,
+      "mean_grip_n": 20.745487372080486,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 8,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.07226007586965959,
+      "mean_tracking_m": 0.011247617774643004,
+      "mean_grip_n": 20.603713671366375,
+      "tilt_rmse_vs_classical_rad": 0.01738023121530811,
+      "ball_sight_rmse_m": 0.007127601500270861
+    }
+  },
+  "dynamics": {
+    "summary": "randomized dynamics",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.05709148229410251,
+      "mean_tracking_m": 0.00635224506064939,
+      "mean_grip_n": 36.19000116984049,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03552654975404342,
+      "mean_tracking_m": 0.003274402959505096,
+      "mean_grip_n": 33.88401381174723,
+      "tilt_rmse_vs_classical_rad": 0.01416780217550695,
+      "ball_sight_rmse_m": 0.00472721013422693
+    }
+  },
+  "all": {
+    "summary": "camera gain 0.04 read 2, torque at 40% of rated, latency 1 step(s), backlash 0.50 deg, randomized dynamics",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.0456747862820824,
+      "mean_tracking_m": 0.00608550386580949,
+      "mean_grip_n": 28.748723030090332,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.04466692513475815,
+      "mean_tracking_m": 0.005895816837437451,
+      "mean_grip_n": 28.511396249135334,
+      "tilt_rmse_vs_classical_rad": 0.01473597475948433,
+      "ball_sight_rmse_m": 0.005841220232396165
+    }
+  }
+}

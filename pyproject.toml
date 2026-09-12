@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openarm_gym"
+version = "0.2.0"
+description = "Two OpenArm v2 arms carrying a tray together, grasped from vision and balanced from vision"
+license = { text = "Apache-2.0" }
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "gymnasium>=1.0",
+    # 3.13 or newer, not merely 3.6: the contact solver changed between 3.12
+    # and 3.13, and a scripted expert that scores 6/6 on 3.13 scores 1/6 on
+    # 3.12 from identical code. Anything measured below 3.13 is not comparable
+    # with the numbers in this repository.
+    "mujoco>=3.13.0",
+    "numpy",
+    # The arm itself -- meshes, pedestal, joint limits -- is Enactic's, vendored
+    # as a submodule under third_party/ and installed from there:
+    #     pip install -e third_party/openarm_mujoco
+    "openarm_mujoco>=2.2.0",
+]
+
+[project.optional-dependencies]
+# The learned policies. The simulation and the classical controller need none
+# of this, which is deliberate: the baseline has to be runnable without torch.
+learn = ["torch>=2.4", "pillow>=10"]
+dev = ["pytest>=8", "ruff==0.14.11"]
+
+[tool.setuptools.packages.find]
+include = ["openarm_gym*"]
+
+[tool.ruff.lint]
+extend-select = ["D", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"!openarm_gym/**.py" = ["D"]

@@ -1,0 +1,14 @@
+openarm-tray-carry
+Copyright 2026 Enactic, Inc.
+
+This product includes software developed at Enactic, Inc.
+(https://github.com/enactic/openarm_mujoco), licensed under the
+Apache License, Version 2.0.
+
+The OpenArm v2 robot model -- its meshes, pedestal and joint limits -- is
+Enactic's and is vendored unmodified as a git submodule under
+third_party/openarm_mujoco. Nothing in that submodule has been changed.
+
+scenes/tray_grasp_scene.xml is derived from that project's
+v2/pedestal/balance_scene.xml: the tray, its handle posts and the ball were
+added, and the asset paths were repointed at the submodule.

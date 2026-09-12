@@ -1,0 +1,113 @@
+<!--
+Copyright 2026 Enactic, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+Two-arm tray carry: a tray with handle posts, GRASPED by both grippers, and
+a free ball resting on it.
+Tilting the plate rolls the ball - the classic ball-on-plate stabilisation
+task on a 7-DOF arm. The plate weld starts inactive; a controller activates
+it at runtime after posing the arm.
+-->
+<mujoco model="openarm_v20_tray_grasp">
+  <compiler meshdir="../third_party/openarm_mujoco/v2/assets" angle="radian"/>
+
+  <statistic center="0.30 -0.05 0.60" extent="1.1" meansize="0.05"/>
+  <option timestep="0.001" cone="elliptic" impratio="10"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="150" elevation="-20"/>
+    <quality shadowsize="8192"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.55 0.55 0.58" rgb2="0.2 0.2 0.2" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.38 0.38 0.4" rgb2="0.3 0.3 0.32"
+      markrgb="0.6 0.6 0.6" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+
+    <model name="arm_pedestal" file="../third_party/openarm_mujoco/v2/pedestal/openarm_pedestal.xml"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 2" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <camera name="balancecam" pos="0.75 -0.40 0.95" xyaxes="0.5 0.866 0 -0.35 0.20 0.92" fovy="50"/>
+    <camera name="topcam"     pos="0.30 -0.05 1.30" xyaxes="1 0 0 0 1 0" fovy="55"/>
+
+    <!-- bimanual arms mounted on the pedestal -->
+    <attach model="arm_pedestal" prefix=""/>
+
+    <!-- Table: top at z=0.40, centered on the arm (y=0). Footprint matches the
+         cell workspace table in cell.xml (0.41 x 0.55 half-extents) so tabletop
+         layouts carry over; the cell mounts the arms on a lifter above the
+         table, so absolute heights differ. -->
+    <body name="table" pos="0.47 0.0 0.36">
+      <geom name="table_top" type="box" size="0.41 0.55 0.04" rgba="0.82 0.71 0.55 1"
+            friction="1 0.005 0.0001" contype="1" conaffinity="1"/>
+    </body>
+
+    <!-- Plate: 15x15x1 cm, 50 g. Free joint so the weld can attach it to the
+         right gripper at runtime. The riser rod is visual-only (no collision)
+         and reads as the stem the gripper holds. -->
+    <!-- Tray with a vertical handle post at each end. The jaws reach along +x
+         and close on the posts; friction alone carries the tray. -->
+    <body name="tray" pos="0.35 0.0 0.405">
+      <joint name="tray_free" type="free"/>
+      <!-- No explicit <inertial>: MuJoCo derives it from the geom masses, which
+           keeps it physically consistent as the geometry changes. -->
+      <geom name="tray_top" type="box" size="0.075 0.15 0.005"
+            pos="0 0 0" mass="0.20" rgba="0.35 0.55 0.85 1" contype="1" conaffinity="1"
+            condim="6" friction="0.4 0.005 0.0002"
+            solref="0.005 1" solimp="0.95 0.99 0.001"/>
+      <geom name="handle_left" type="box" size="0.022 0.012 0.035"
+            pos="0 0.15 0.035" mass="0.025" rgba="0.85 0.65 0.2 1"
+            contype="1" conaffinity="1" condim="6"
+            friction="1.2 0.01 0.001" solref="0.004 1" solimp="0.98 0.99 0.001"/>
+      <geom name="handle_right" type="box" size="0.022 0.012 0.035"
+            pos="0 -0.15 0.035" mass="0.025" rgba="0.85 0.65 0.2 1"
+            contype="1" conaffinity="1" condim="6"
+            friction="1.2 0.01 0.001" solref="0.004 1" solimp="0.98 0.99 0.001"/>
+    </body>
+
+    <!-- Ball: ping-pong specs (40 mm dia, 2.73 g). Stiff, near-inelastic contact
+         (low bounce); condim=6 resolves rolling friction so the ball rolls under
+         tilt instead of sticking. -->
+    <body name="ball" pos="0.35 0.0 0.4300">
+      <joint name="ball_free" type="free"/>
+      <inertial pos="0 0 0" mass="0.0027" diaginertia="7.2e-7 7.2e-7 7.2e-7"/>
+      <geom name="ball_geom" type="sphere" size="0.020"
+            rgba="0.95 0.45 0.10 1" contype="1" conaffinity="1"
+            condim="6" friction="0.35 0.005 0.0001"
+            solref="0.005 1" solimp="0.95 0.99 0.001"/>
+    </body>
+  </worldbody>
+
+
+
+  <keyframe>
+    <!-- Arms at the shared home pose; tray resting on the table with the ball
+         on it. The arms must reach, grasp the posts and lift. -->
+    <key name="home"
+      qpos="0.000000 0.000000 0.000000 1.570796 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.570796 0.000000 0.000000 0.000000 0.000000 0.000000
+            0.35 0.0 0.405 1 0 0 0
+            0.35 0.0 0.4300 1 0 0 0"
+      ctrl="0.000000 0.000000 0.000000 1.570796 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.570796 0.000000 0.000000 0.000000 0.000000"/>
+  </keyframe>
+
+</mujoco>

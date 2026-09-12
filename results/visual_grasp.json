@@ -1,0 +1,26 @@
+{
+  "privileged": {
+    "episodes": 12,
+    "clean_grasps": 12,
+    "grasp_held": 12,
+    "ball_kept": 12,
+    "mean_shove_m": 0.005940115962978422,
+    "max_shove_m": 0.006273036837556286,
+    "mean_grip_n": 43.01324434134204,
+    "min_contacts": 2,
+    "handle_error_m": null,
+    "max_handle_error_m": null
+  },
+  "vision": {
+    "episodes": 12,
+    "clean_grasps": 12,
+    "grasp_held": 12,
+    "ball_kept": 11,
+    "mean_shove_m": 0.005572231852523045,
+    "max_shove_m": 0.0062014813185623015,
+    "mean_grip_n": 43.147628774754274,
+    "min_contacts": 2,
+    "handle_error_m": 0.000671539419804689,
+    "max_handle_error_m": 0.001460394365912184
+  }
+}

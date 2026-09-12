@@ -1,0 +1,23 @@
+{
+  "clean": {
+    "summary": "randomized layout",
+    "classical": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.03651383426040411,
+      "mean_tracking_m": 0.0035941376797078797,
+      "mean_grip_n": 34.698391596476235,
+      "tilt_rmse_vs_classical_rad": 0.0,
+      "ball_sight_rmse_m": null
+    },
+    "vision-estimator": {
+      "survived": 12,
+      "episodes": 12,
+      "mean_peak_ball_m": 0.0329850233780841,
+      "mean_tracking_m": 0.002788208124305432,
+      "mean_grip_n": 33.84163506825765,
+      "tilt_rmse_vs_classical_rad": 0.012156163187076649,
+      "ball_sight_rmse_m": 0.004672095832506298
+    }
+  }
+}

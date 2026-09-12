@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+# Datasets and checkpoints live outside the repository on purpose: the vision
+# dataset alone is ~190 MB and git is the wrong place for it.
+*.npz
+*.pt
+*.onnx
