@@ -27,6 +27,9 @@ dependencies = [
 # The learned policies. The simulation and the classical controller need none
 # of this, which is deliberate: the baseline has to be runnable without torch.
 learn = ["torch>=2.4", "pillow>=10"]
+# Writing MP4s. PyAV rather than ffmpeg-on-PATH, because a rollout that renders
+# and then cannot be saved wastes the whole run.
+video = ["av>=12"]
 dev = ["pytest>=8", "ruff==0.14.11"]
 
 [tool.setuptools.packages.find]

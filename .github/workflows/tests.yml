@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e third_party/openarm_mujoco
-      - run: pip install -e ".[learn,dev]"
+      - run: pip install -e ".[learn,video,dev]"
       - run: ruff check openarm_gym/
       # Rendering needs a GL context; MuJoCo's osmesa backend supplies one
       # without a display.

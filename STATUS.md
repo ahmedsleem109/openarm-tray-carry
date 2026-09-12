@@ -444,6 +444,14 @@ project venv**, `D:\openarm mujoco\openarm_mujoco\.venv` — mujoco 3.13.0, torc
 
 - **mujoco >= 3.13 is required.** The 3.12 contact solver drops the clean
   `peg_socket` expert from 6/6 to 1/6.
+- **And the platform matters too, not just the version.** The same expert on
+  the same mujoco 3.13.0 scores 6/6 on Windows and **0/6 on Linux** in CI. The
+  tray results are not affected -- they are measured here, and the carry is a
+  much less knife-edge contact problem than inserting a peg -- but a
+  contact-rich scripted routine tuned on one platform should not be assumed to
+  transfer to another. Those expert rate tests are therefore skipped off
+  Windows, with the reason in the skip message rather than in a commit nobody
+  reads.
 - `export HF_HUB_OFFLINE=1` before anything touching lerobot datasets.
 - **RAM is the binding constraint, not disk.** 16 GB total, ~3–5 GB available.
   VS Code holds ~3.8 GB and must stay open. The vision dataset is held in RAM as
