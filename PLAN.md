@@ -12,9 +12,10 @@ its handles and carrying it while keeping a loose ball from rolling off.
 > old roadmap is in git history; a short account of why it was dropped is at the
 > bottom of this file.
 
-> **Next session: go to [the work queue](#the-work-queue--do-these-in-order) and
-> start at P1.** P0 was done and measured on 2026-09-12; its results are in
-> STATUS.md under "What P0 bought".
+> **Next session: start at N1, tactile sensing and force control.** See
+> [the next direction](#the-next-direction-decided-2026-09-12). P0 is done and
+> measured (results in STATUS.md under "What P0 bought"), the browser demo is
+> live, and the balancing task is now the *baseline* rather than the frontier.
 
 ## The five requirements
 
@@ -121,6 +122,85 @@ full table is in STATUS.md.
 
 **Gate for "finished":** a real arm. Until one exists, every number here is a
 simulation number and is labelled as one.
+
+## The next direction, decided 2026-09-12
+
+**The balancing task is finished, and it is too easy.** Ball-on-plate is the
+classical benchmark it looks like, a PD law solves it, and every headline number
+in this repository is now 12/12 for *both* the classical controller and the
+vision policy. A task both controllers pass cannot distinguish them, so it can no
+longer measure progress — which is the actual argument for changing it, not
+fashion.
+
+What is **not** finished is the machinery underneath: a coordinated bimanual
+grasp on friction and form closure with no welds, a measured sim-to-real layer, a
+randomized layout, one shared rollout driver, and a browser demo. That is a
+platform, and the ball was the cheapest possible payload to put on it. The
+platform stays.
+
+### What was chosen
+
+Two directions, to be done **cheapest first**:
+
+1. **Tactile sensing and force control** — about a week.
+2. **A deformable payload** — one to two weeks, and the riskier of the two.
+
+**The ball task stays as the baseline and the regression suite.** Nothing is
+deleted and no numbers are rewritten. It is what will prove the new task is
+genuinely harder: *"the classical controller scores 12/12 on the ball and 3/12
+on this"* is the sentence that gives any new result its meaning, and it cannot be
+written if the old task is gone.
+
+### N1 — tactile sensing and force control — *about a week*
+
+Start here. It is the cheaper of the two and it attacks a failure this project has
+already **measured** rather than a hypothetical one: backlash unloads the grip
+from 34 N to 18 N, and that is what loses the episodes at 1.5 degrees. The grasp
+is currently open-loop force — the jaws are commanded shut and whatever force
+results, results.
+
+- MuJoCo touch sensors on the finger pads, so the controller can read contact
+  force instead of inferring it from `mj_contactForce` after the fact.
+- Close to a **commanded grip force**, not to a commanded position.
+- **Note the one thing already tried here.** STATUS.md lists `regulate_grip` as
+  having measured worse, and the reason was specific: commanding SHUT already
+  saturates the actuator, so there was no headroom to squeeze. That argument is
+  about a *position* command with no force feedback. With a tactile reading and a
+  torque-controlled finger the loop is a different one — but re-read that entry
+  before re-deriving it.
+
+**Gate:** grip force held at a commanded setpoint through a carry, under the
+backlash where it currently collapses, with the tray still held. Report grip
+against the 34 N / 18 N numbers already in STATUS.md.
+
+### N2 — a deformable payload — *one to two weeks*
+
+MuJoCo flex: a cloth on the tray, or a cloth held between the two grippers. This
+is the one that ends the "it is just PD" objection outright, because a deformable
+payload **has no rigid state to feed back**. There is no ball position to
+estimate and no PD law to hand it to; the perception has to carry the whole
+problem.
+
+- Highest risk on this list. Flex simulation is slower and less forgiving than
+  rigid bodies, and the 16 GB RAM ceiling is already a binding constraint here.
+  **Measure the step rate before building anything on top of it** — if the scene
+  will not run at a usable rate, that is worth knowing in an afternoon rather
+  than a week.
+- Start from the existing scene and swap the payload, so the grasp, the carry and
+  the whole evaluation harness carry over unchanged.
+
+**Gate:** a measurement in which the classical controller has no meaningful
+setpoint to command and the learned policy completes the task. State the
+classical baseline's score even when it is zero — especially then.
+
+### What this does to the old queue
+
+P1 (residual RL) and P2 (DINOv2/SAM2 perception) below are **not cancelled**, and
+P1 in particular is worth more once N1 or N2 has produced a task the classical
+controller fails. P3 is done. Read the queue as history plus a backlog, and start
+at N1.
+
+---
 
 ## The work queue — do these in order
 

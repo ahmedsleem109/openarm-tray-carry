@@ -4,14 +4,26 @@ Rewritten 2026-09-12. Read this first in a new session.
 
 ---
 
-**Next session: `PLAN.md` carries a prioritised work queue. P0 is done; start at
-P1.** All three P0 items -- evaluate vision under the sim-to-real layer, make the
-grasp visual, randomize the scene layout -- were built and measured on
-2026-09-12, along with the retraining the third one called for, and their results
-are in [what P0 bought](#what-p0-bought). **Use
+**Next session: start at N1 in `PLAN.md` — tactile sensing and force control.**
+The direction changed on 2026-09-12: ball-on-plate is the classical benchmark it
+looks like, and with both the classical controller and the vision policy at
+12/12 the task can no longer tell them apart. It stays as the **baseline and
+regression suite** — nothing here is deleted or rewritten — while the new work
+goes to a payload that defeats a PD law. See "The next direction" in PLAN.md.
+
+Everything below is still current and still measured. All three P0 items --
+evaluate vision under the sim-to-real layer, make the grasp visual, randomize the
+scene layout -- were built and measured on 2026-09-12, along with the retraining
+the third one called for, and their results are in
+[what P0 bought](#what-p0-bought). **Use
 `D:/openarm_data/tray_vision_layout/policy.pt`**, the checkpoint trained over
-randomized layouts. P1 is residual RL on the setpoint space, which is a week and
-needs WSL2.
+randomized layouts.
+
+The repository is public at
+<https://github.com/ahmedsleem109/openarm-tray-carry>, the browser demo is live
+at <https://ahmedsleem109.github.io/openarm-tray-carry/web/>, and CI is green.
+The one thing left hanging: the HuggingFace upload is written and dry-run clean
+but needs `huggingface-cli login` once, then `python scripts/publish_hf.py`.
 
 ## What this project is for
 
