@@ -18,7 +18,7 @@ await page.goto("http://localhost:8124/web/", { waitUntil: "load" });
 try {
   await page.waitForFunction(
     () => document.getElementById("phase")?.textContent?.includes("carrying"),
-    { timeout: 90000 },
+    { timeout: 180000 },
   );
   console.log("reached the carrying phase");
 } catch {

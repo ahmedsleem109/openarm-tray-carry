@@ -168,7 +168,7 @@ class WaypointExpert:
         rotation = self._rot if rot is None else rot
         return pinch - rotation @ (TOOL_AXIS_LOCAL * GRASP_OFFSET)
 
-    def pose_for(self, waypoint: "Waypoint") -> tuple[np.ndarray, np.ndarray]:
+    def pose_for(self, waypoint: Waypoint) -> tuple[np.ndarray, np.ndarray]:
         """Return the ``(quat, rot)`` a waypoint should be reached with."""
         if waypoint.quat is None:
             return self.grasp_quat, self._rot
@@ -220,7 +220,7 @@ class WaypointExpert:
         self._cursor = self.pinch_now()
 
     def _on_reset(self, rng: np.random.Generator) -> None:
-        """Hook for task-specific per-episode choices."""
+        """Make the task-specific per-episode choices, if there are any."""
 
     def _choose_orientation(self) -> None:
         """Pick the tool orientation that reaches every waypoint best."""
