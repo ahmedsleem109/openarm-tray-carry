@@ -12,6 +12,7 @@ the same tray layout, the same shove — the balancer is running. The numbers on
 screen are live, and the two small images at the bottom are everything the
 policy on the right is given.
 
+🕹 **[Run it in your browser](https://ahmedsleem109.github.io/openarm-tray-carry/web/)** — real MuJoCo physics in the tab, shove the ball yourself ·
 ▶ **[Full 12-second comparison](results/tray_demo.mp4)** ·
 📄 **[What was measured, and what broke first](STATUS.md)** ·
 🗺 **[Where this is going](PLAN.md)**
@@ -101,6 +102,27 @@ detector, so it must be trained on the state distribution you want it accurate
 over — which is uniform, not whatever a stabilising controller visits.**
 Behaviour cloning on a good balancer's own rollouts scored 0/12 while being
 accurate to 4.6 mm on the expert's own states.
+
+## In the browser
+
+`web/` runs the whole thing client-side: MuJoCo 3.13 compiled to WebAssembly,
+the arm's meshes drawn straight out of the model, and the bimanual controller
+ported to JavaScript — the same constants, the same approach sequence, the same
+PD law. Measured at about **2.7k physics steps/s in Chromium, 2.7× realtime**,
+with the grasp animated rather than skipped.
+
+It runs the **classical** controller, not the vision policy, and says so on the
+page. The policy is trained on MuJoCo's renderer and the page draws with
+three.js; feeding it browser pixels would be a different visual distribution, so
+it would fail — and it would look like the policy failing rather than the setup
+being wrong.
+
+```sh
+cd web && npm install
+npm run serve          # then open http://localhost:8000/web/
+npm test               # the port reproduces the Python grasp and balance
+npm run test:page      # loads the page in Chromium and checks it reaches "carrying"
+```
 
 ## Running it
 

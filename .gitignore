@@ -9,3 +9,5 @@ __pycache__/
 *.npz
 *.pt
 *.onnx
+node_modules/
+web/page*.png

@@ -12,3 +12,8 @@ third_party/openarm_mujoco. Nothing in that submodule has been changed.
 scenes/tray_grasp_scene.xml is derived from that project's
 v2/pedestal/balance_scene.xml: the tray, its handle posts and the ball were
 added, and the asset paths were repointed at the submodule.
+
+web/ik.js and web/model-vfs.js are copied unmodified from that project: the
+browser demo drives the same left/right_ee_control_point sites through the same
+damped-least-squares solve, and loads scenes into an MjVFS by the same rules.
+web/tray.js is a port of this repository's own openarm_gym/control/bimanual_tray.py.

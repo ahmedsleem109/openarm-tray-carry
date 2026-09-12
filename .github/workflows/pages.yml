@@ -1,0 +1,40 @@
+# Publish the in-browser demo to GitHub Pages.
+#
+# The checkout must be recursive: the page loads the arm's meshes out of the
+# third_party/openarm_mujoco submodule, and a Pages build without them serves a
+# scene whose assets 404 -- which fails as a blank canvas rather than an error.
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/configure-pages@v5
+      - name: Upload the repository as the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # The whole repository: the page lives at /web/ and reaches back up
+          # for scenes/ and third_party/.
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,39 @@
+# The Python suite, and the JavaScript port's own tests.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e third_party/openarm_mujoco
+      - run: pip install -e ".[learn,dev]"
+      - run: ruff check openarm_gym/
+      # Rendering needs a GL context; MuJoCo's osmesa backend supplies one
+      # without a display.
+      - run: sudo apt-get update && sudo apt-get install -y libosmesa6-dev
+      - env:
+          MUJOCO_GL: osmesa
+        run: pytest tests/ -q
+
+  javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci --prefix web || npm install --prefix web
+      - run: npm test --prefix web

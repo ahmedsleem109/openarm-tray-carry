@@ -1,0 +1,18 @@
+{
+  "name": "openarm-tray-carry-web",
+  "version": "0.1.0",
+  "description": "In-browser tray carry: MuJoCo WASM plus a classical bimanual controller",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node serve.mjs",
+    "test": "node --test test-tray.mjs",
+    "test:page": "node test-page.mjs",
+    "probe": "node probe.mjs"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@mujoco/mujoco": "3.13.0",
+    "@xmldom/xmldom": "^0.9.12"
+  }
+}
