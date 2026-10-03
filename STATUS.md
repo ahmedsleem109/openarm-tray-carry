@@ -1,10 +1,10 @@
-# Status — handoff
+# Status
 
-Rewritten 2026-09-12. Read this first in a new session.
+Updated 2026-09-12.
 
 ---
 
-**Next session: start at N1 in `PLAN.md` — tactile sensing and force control.**
+**Next: N1 in `PLAN.md` — tactile sensing and force control.**
 The direction changed on 2026-09-12: ball-on-plate is the classical benchmark it
 looks like, and with both the classical controller and the vision policy at
 12/12 the task can no longer tell them apart. It stays as the **baseline and

@@ -12,7 +12,7 @@ its handles and carrying it while keeping a loose ball from rolling off.
 > old roadmap is in git history; a short account of why it was dropped is at the
 > bottom of this file.
 
-> **Next session: start at N1, tactile sensing and force control.** See
+> **Next: N1, tactile sensing and force control.** See
 > [the next direction](#the-next-direction-decided-2026-09-12). P0 is done and
 > measured (results in STATUS.md under "What P0 bought"), the browser demo is
 > live, and the balancing task is now the *baseline* rather than the frontier.
